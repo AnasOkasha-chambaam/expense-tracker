@@ -20,7 +20,7 @@ const DeleteExpenseItemDialog = ({ expenseId }: { expenseId: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="icon">
+        <Button variant="destructive" size="icon" className="max-sm:w-full">
           <Trash2Icon />
         </Button>
       </AlertDialogTrigger>
