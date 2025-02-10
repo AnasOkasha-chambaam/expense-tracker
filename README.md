@@ -1,50 +1,134 @@
-# React + TypeScript + Vite
+# Expense Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Expense Tracker is a modern, responsive web application built with React, TypeScript, and Tailwind CSS, using Vite as the build tool. It allows users to easily manage their expenses by adding, viewing, and deleting entries, as well as visualizing their spending patterns over time.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Add expenses with name, amount, and category
+- View a list of all expenses
+- Delete individual expenses
+- Filter expenses by category
+- Visualize expenses on a line chart
+- Responsive design for mobile and desktop
+- Dark mode support
+- Persistent storage using localStorage
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- React
+- TypeScript
+- Vite (as build tool)
+- Tailwind CSS
+- Zustand (for state management)
+- Zod (for form validation)
+- Recharts (for data visualization)
+- Shadcn UI (for UI components)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- pnpm (v6 or later)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/AnasOkasha-chambaam/expense-tracker.git
+cd expense-tracker
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+pnpm install
 ```
+
+3. Start the development server:
+
+```bash
+pnpm dev
+```
+
+4. Open [http://localhost:5173](http://localhost:5173) with your browser to see the application.
+
+## Usage
+
+### Adding an Expense
+
+1. Fill in the expense name, amount, and select a category.
+2. Click the "Add Expense" button.
+
+### Viewing Expenses
+
+- All expenses are listed on the main page.
+- Use the category filter to view expenses from a specific category.
+
+### Deleting an Expense
+
+- Click the "Delete" button next to the expense you want to remove.
+
+### Visualizing Expenses
+
+- Switch to the "Chart" tab to view a line chart of your expenses over time.
+
+## Project Structure
+
+```plaintext
+expense-tracker/
+├── .gitignore
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── public/
+├── README.md
+├── src/
+│   ├── App.css
+│   ├── App.tsx
+│   ├── assets/
+│   ├── components/
+│   │   ├── charts/
+│   │   │   └── ExpenseChart.tsx
+│   │   ├── dialogs/
+│   │   │   └── DeleteExpenseItem.dialog.tsx
+│   │   ├── Footer.tsx
+│   │   ├── ExpenseForm.tsx
+│   │   ├── ExpenseItem.tsx
+│   │   ├── ExpenseList.tsx
+│   │   └── TotalExpenses.tsx
+│   ├── ui/
+│   ├── index.css
+│   ├── lib/
+│   │   └── utils.ts
+│   ├── main.tsx
+│   ├── store/
+│   │   └── expense.store.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+## Customization
+
+- To add or modify expense categories, update the `categories` array in `src/store/expense.store.ts`.
+- Styling can be customized by modifying the Tailwind classes or updating the CSS files.
+
+## Building for Production
+
+To build the app for production, run:
+
+```bash
+pnpm build
+```
+
+This will generate a `dist` folder with your compiled application, ready for deployment.
