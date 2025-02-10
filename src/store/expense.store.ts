@@ -11,7 +11,7 @@ export interface Expense {
 
 interface ExpenseStore {
   expenses: Expense[];
-  addExpense: (expense: Omit<Expense, "id">) => void;
+  addExpense: (expense: Omit<Expense, "id" | "createdAt">) => void;
   deleteExpense: (id: string) => void;
   categories: string[];
   addCategory: (category: string) => void;
