@@ -127,7 +127,11 @@ export const ExpenseForm: React.FC = () => {
         />
 
         <div className="flex justify-end items-center gap-2">
-          <Button type="submit" disabled={!form.formState.isValid}>
+          <Button
+            type="submit"
+            disabled={!form.formState.isValid}
+            className="max-sm:w-full"
+          >
             <PlusIcon />
             Add Expense
           </Button>
