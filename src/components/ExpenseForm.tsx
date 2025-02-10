@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { PlusCircleIcon, PlusIcon } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -49,7 +50,14 @@ export const ExpenseForm: React.FC = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 border p-3 bg-background rounded-lg"
+      >
+        <FormDescription className="flex items-center gap-2">
+          <PlusCircleIcon />
+          Add an expense
+        </FormDescription>
         <FormField
           control={form.control}
           name="name"
@@ -105,7 +113,13 @@ export const ExpenseForm: React.FC = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Add Expense</Button>
+
+        <div className="flex justify-end items-center gap-2">
+          <Button type="submit" disabled={!form.formState.isValid}>
+            <PlusIcon />
+            Add Expense
+          </Button>
+        </div>
       </form>
     </Form>
   );
