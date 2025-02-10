@@ -12,6 +12,7 @@ import {
 import { Button, buttonVariants } from "../ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useExpenseStore } from "@/store/expense.store";
+import { toast } from "sonner";
 
 const DeleteExpenseItemDialog = ({ expenseId }: { expenseId: string }) => {
   const { deleteExpense } = useExpenseStore();
@@ -36,6 +37,7 @@ const DeleteExpenseItemDialog = ({ expenseId }: { expenseId: string }) => {
           <AlertDialogAction
             onClick={() => {
               deleteExpense(expenseId);
+              toast.error("Expense deleted successfully");
             }}
             className={buttonVariants({
               variant: "destructive",
