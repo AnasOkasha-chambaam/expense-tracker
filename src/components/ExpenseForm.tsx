@@ -22,19 +22,24 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PlusCircleIcon, PlusIcon } from "lucide-react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  amount: z.number().positive("Amount must be positive"),
+  amount: z
+    .number({
+      message: "Amount must be a number",
+    })
+    .positive("Amount must be positive"),
   category: z.string().min(1, "Category is required"),
 });
 
-type FormData = z.infer<typeof formSchema>;
+type TExpenseFields = z.infer<typeof formSchema>;
 
 export const ExpenseForm: React.FC = () => {
   const { addExpense, categories } = useExpenseStore();
 
-  const form = useForm<FormData>({
+  const form = useForm<TExpenseFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -43,8 +48,11 @@ export const ExpenseForm: React.FC = () => {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    addExpense(data);
+  const onSubmit = (expenseFields: TExpenseFields) => {
+    addExpense(expenseFields);
+    toast.success("Expense added successfully", {
+      description: `Added (${expenseFields.name}) to (${expenseFields.category}) category`,
+    });
     form.reset();
   };
 
@@ -95,7 +103,11 @@ export const ExpenseForm: React.FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Category</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select
+                value={field.value}
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a category" />
