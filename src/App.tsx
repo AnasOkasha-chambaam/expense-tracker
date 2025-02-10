@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ExpenseForm } from "./components/ExpenseForm";
 import { ExpenseList } from "./components/ExpenseList";
 import { TotalExpenses } from "./components/TotalExpenses";
@@ -19,10 +19,12 @@ import {
   CardTitle,
 } from "./components/ui/card";
 import { ThemeToggle } from "./components/ui/theme-toggle";
+import { Toaster } from "./components/ui/sonner";
+import { Separator } from "./components/ui/separator";
 
 const App: React.FC = () => {
-  const { categories } = useExpenseStore();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { categories, selectedCategory, setSelectedCategory } =
+    useExpenseStore();
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -40,11 +42,15 @@ const App: React.FC = () => {
             </div>
           </CardHeader>
           <ExpenseForm />
+          <Separator className="my-8" />
           <CardContent>
-            <div className="mt-8">
+            <div>
               <h2 className="text-2xl font-semibold mb-4">Expenses</h2>
               <Select
-                onValueChange={(value) => setSelectedCategory(value || null)}
+                value={selectedCategory || ""}
+                onValueChange={(value) =>
+                  setSelectedCategory(value === "all" ? null : value)
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Filter by category" />
@@ -63,6 +69,7 @@ const App: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+        <Toaster position="bottom-center" richColors />
       </div>
     </ThemeProvider>
   );
