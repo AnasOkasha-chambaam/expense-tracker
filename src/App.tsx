@@ -24,14 +24,6 @@ const App: React.FC = () => {
   const { categories } = useExpenseStore();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const filteredExpenses = useExpenseStore((state) =>
-    selectedCategory
-      ? state.expenses.filter(
-          (expense) => expense.category === selectedCategory
-        )
-      : state.expenses
-  );
-
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="px-3">
