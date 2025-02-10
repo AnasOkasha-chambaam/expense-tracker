@@ -15,11 +15,14 @@ interface ExpenseStore {
   deleteExpense: (id: string) => void;
   categories: string[];
   addCategory: (category: string) => void;
+  selectedCategory: string | null;
+  setSelectedCategory: (category: string | null) => void;
+  getFilteredExpenses: () => Expense[];
 }
 
 export const useExpenseStore = create<ExpenseStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       expenses: [],
       categories: [
         "Food",
@@ -28,6 +31,7 @@ export const useExpenseStore = create<ExpenseStore>()(
         "Utilities",
         "Other",
       ],
+      selectedCategory: null,
       addExpense: (expense) =>
         set((state) => ({
           expenses: [
@@ -47,6 +51,14 @@ export const useExpenseStore = create<ExpenseStore>()(
         set((state) => ({
           categories: [...state.categories, category],
         })),
+
+      setSelectedCategory: (category) => set({ selectedCategory: category }),
+      getFilteredExpenses: () => {
+        const { expenses, selectedCategory } = get();
+        return selectedCategory && selectedCategory !== "all"
+          ? expenses.filter((expense) => expense.category === selectedCategory)
+          : expenses;
+      },
     }),
     {
       name: "expense-store",
